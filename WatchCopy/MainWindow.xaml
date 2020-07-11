@@ -24,8 +24,8 @@
         <TextBox x:Name="txtCurrentDirName" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="5" 
                  IsReadOnly="True"></TextBox>
         <TextBox x:Name="txtCurrentFileName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="5" 
-                 IsReadOnly="True"></TextBox>
-        <TextBox x:Name="txtMsg" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Margin="5"
+                 IsReadOnly="True"  ></TextBox>
+        <TextBox x:Name="txtMsg" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Margin="5"
                  IsReadOnly="True"></TextBox>
     </Grid>
 </Window>
