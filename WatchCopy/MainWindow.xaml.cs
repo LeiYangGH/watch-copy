@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+//using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace WatchCopy
@@ -40,15 +40,45 @@ namespace WatchCopy
             watcher.EnableRaisingEvents = true;
         }
 
+        private void CopyFile(string srcFullName)
+        {
+            string srcDir = Path.GetDirectoryName(srcFullName);
+            //string fnWithoutExt = Path.GetFileNameWithoutExtension(srcFullName);
+            string ext = Path.GetExtension(srcFullName);
+            string desFullName = srcFullName.Replace(ext, ".bak" + ext);
+            if (!File.Exists(desFullName))
+            {
+                try
+                {
+                    File.Copy(srcFullName, desFullName);
+                }
+                catch (Exception ex)
+                {
+                    this.txtMsg.Dispatcher.Invoke(DispatcherPriority.Normal,
+new Action(() =>
+{
+    this.txtMsg.Text = ex.Message;
+}));
+
+                }
+            }
+        }
+
+
+
+
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
+            string srcFullName = e.FullPath;
+            if (srcFullName.Contains(".bak."))
+                return;
+
             this.txtCurrentFileName.Dispatcher.Invoke(DispatcherPriority.Normal,
      new Action(() =>
      {
-         txtCurrentFileName.Text = e.FullPath;
-
+         txtCurrentFileName.Text = srcFullName;
      }));
-
+            CopyFile(srcFullName);
 
         }
     }
